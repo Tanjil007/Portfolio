@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>python-openCV</title>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<nav class="navigation container">
+        <div class="nav-brand">IMDEVELOPER</div>
+        <ul class="list-non-bullet nav-pills">
+            <li class="list-item-inline"><a class="link" href="/">Home</a></li>
+            <li class="list-item-inline"><a class="link" href="projects.html">Projects</a></li>
+            <li class="list-item-inline"><a class="link link-active" href="blogs.html">Blogs</a></li>
+        </ul>
+	</nav>
+	<header class="hero">
+		<img class="hero-img" src="images/python-opencv.svg" alt="">
+	</header>
+	<div class="blog">
+		<h1>Loading Video Source OpenCV Python Tutorial</h1>
+		<small>Posted by Tanjil on Dec 1,2020</small>
+		<p>In this OpenCV with Python tutorial, we're going to cover some basic operations with video and webcams. Aside from the beginning lines, handling frames from a video is identical to handling for images. Let's show some examples:</p>
+		<div class="code">
+			import numpy as np <br>
+import cv2 <br><br>
+
+cap = cv2.VideoCapture(0) <br><br>
+ 
+while(True): <br>
+    ret, frame = cap.read() <br>
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) <br><br>
+ 
+    cv2.imshow('frame',gray) <br>
+    if cv2.waitKey(1) & 0xFF == ord('q'): <br>
+        break <br><br>
+
+cap.release() <br>
+cv2.destroyAllWindows()
+
+		</div>
+		<p>First, we import numpy and cv2, nothing fancy there. Next, we cay <br>
+		<strong>cap = cv2.VideoCapture(0).</strong> This will return video from the first webcam on your computer. If you are watching the tutorial videos, you will see I am using 1, since my first webcam is recording me, and the second webcam is used for the actual tutorial feed.</p>
+		<div class="code">
+			while(True): <br>
+          <span style="white-space: pre;">ret, frame = cap.read()</span> 
+
+		</div>
+		<p>This code initiates an infinite loop (to be broken later by a break statement), where we have ret and frame being defined as the cap.read(). Basically, ret is a boolean regarding whether or not there was a return at all, at the frame is each frame that is returned. If there is no frame, you wont get an error, you will get None.</p>
+		<div class="code">gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</div>
+		<p>Here, we define a new variable, gray, as the frame, converted to gray. Notice this says BGR2GRAY. It is important to note that OpenCV reads colors as BGR (Blue Green Red), where most computer applications read as RGB (Red Green Blue). Remember this.</p>
+		<div class="code">cv2.imshow('frame', gray)</div>
+		<p>Notice that, despite being a video stream, we still use imshow. Here, we're showing the converted-to-gray feed. If you wish to show both at the same time, you can do imshow for the original frame, and imshow for the gray and two windows will appear.</p>
+		<div class="code">if cv2.waitKey(1) & 0xFF == ord('q'):break</div>
+		<p>This statement just runs once per frame. Basically, if we get a key, and that key is a q, we will exit the while loop with a break, which then runs:</p>
+		<div class="code">
+			cap.release() <br>
+			cv2.destroyAllWindows()
+		</div>
+		<p>This releases the webcam, then closes all of the imshow() windows. <br>
+
+			In some cases, you may actually want to record, and save the recording to a new file. Here's an example of doing this on Windows:</p>
+		<div class="code">
+			import numpy as np <br>
+import cv2 <br><br>
+
+cap = cv2.VideoCapture(1) <br>
+fourcc = cv2.VideoWriter_fourcc(*'XVID') <br>
+out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480)) <br><br>
+
+while(True): <br>
+    ret, frame = cap.read() <br>
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) <br>
+    out.write(frame) <br>
+    cv2.imshow('frame',gray) <br>
+    if cv2.waitKey(1) & 0xFF == ord('q'): <br>
+        break <br><br>
+
+cap.release() <br>
+out.release() <br>
+cv2.destroyAllWindows() <br>
+
+		</div>
+		<p>
+			Mainly to note here is the codec being used, and the output information defined before the while loop. Then, within the while loop, we use out.write() to output the frame. Finally, outside the while loop, after we release our webcam, we also release the out.
+
+Great, so now we know how to operate with both images and video. If you do not have a webcam, you can follow along the rest of the tutorial with either an image, or even a video. If you wish to use a video, rather than a webcam, within the feed, you specify a file path for a video instead of a camera number.
+		</p>
+	</div>
+</body>
+</html>
